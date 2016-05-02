@@ -27,5 +27,3 @@ class Parser(object):
             jsondata = self.conf.get('networks', 'list')
             jsondata = json.loads(jsondata)
         return jsondata
-
-a
