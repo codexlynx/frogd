@@ -9,7 +9,7 @@ class APJumper(object):
         self.config = Parser(config)
 
     def start(self):
-        print (self.config.getGlobal('mode'))
+        print (self.config.getNetworks())
 
 def main():
     jumper = APJumper()
