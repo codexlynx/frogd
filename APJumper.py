@@ -14,7 +14,9 @@ class APJumper(object):
     def __init__(self, config, logfile): #Arguments for using as module
         logging.basicConfig(filename = logfile, level = logging.DEBUG,
                             format = '%(asctime)s - %(levelname)s - %(message)s')
-
+        self.checkServer = '8.8.8.8'
+        self.checkPkt = 3
+        '''#'''
         self.id = 0 #ID Starting
         self.config = Parser(config)
 
@@ -28,7 +30,13 @@ class APJumper(object):
         self.max = str(self.json).count("'essid'") - 1
 
     def checkConnection(self):
-        pass
+        cmd = 'ping -c %d %s > /dev/null 2>&1' % (self.checkPkt, self.checkServer)
+        print (cmd)
+        rcv = os.system(cmd)
+        if rcv == 0:
+            return True
+        else:
+            return False
 
     def dhcp(self, interface, command):
         dhcp = command.replace('${interface}', interface)
@@ -51,16 +59,21 @@ class APJumper(object):
 
     def postConnect(self, interface):
         dhcp = self.config.getCommad('dhcp')
-        if dhcp != False:
+        if dhcp != 'false':
             self.dhcp(interface, dhcp)
 
         callback = self.config.getGlobal('callback')
-        if callback != False:
+        if callback != 'false':
             print (callback)
             #os.system(callback)
+
         check = self.config.getGlobal('check')
-        if check == True:
-            self.checkConnection()
+        if check == 'true':
+            status = self.checkConnection()
+        else:
+            status = True
+            
+        return status
 
     def networkDispatcher(self):
         mode = self.config.getGlobal('mode')
@@ -68,13 +81,14 @@ class APJumper(object):
             inter = self.oneInterface()
         elif mode == 'two-interface':
             pass
-        self.postConnect(inter)
+        status = self.postConnect(inter)
+        return status
 
-    def nextNetwork(self):
+    def nextNetwork(self, mode):
         engine = self.config.getGlobal('algorithm')
         engine = getattr(Algorithms, engine)
         kwargs = self.processParameters()
-        self.id = engine(self, **kwargs)
+        self.id = engine(self, mode, **kwargs)
 
     def start(self):
         logging.info('APJumper daemon running')
@@ -82,9 +96,9 @@ class APJumper(object):
             logging.info('Loading networks')
             self.loadNetworks()
             logging.info('Connecting to the new network')
-            self.networkDispatcher()
+            status = self.networkDispatcher()
             logging.info('Jumping to the next network')
-            self.nextNetwork()
+            self.nextNetwork(status)
 
 def main():
     jumper = APJumper(config, logfile)
