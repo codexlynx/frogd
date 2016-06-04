@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 from lib.config import Parser
 from lib.algorithms import Algorithms
@@ -18,7 +19,16 @@ class APJumper(object):
         self.checkPkt = 3
         '''#'''
         self.id = 0 #ID Starting
-        self.config = Parser(config)
+
+    def sendEvent(self, text, notify = True, log = True):
+        if log == True:
+            logging.info(text)
+
+        if notify == True and bool(self.config.getGlobal('notifications')) != False:
+            notify = self.config.getCommad('notifications')
+            notify = notify.replace('${title}', 'AP-Jumper')
+            notify = notify.replace('${text}', text)
+            os.system(notify)
 
     def processParameters(self):
         param = self.config.getGlobal('parameters')
@@ -30,8 +40,7 @@ class APJumper(object):
         self.max = str(self.json).count("'essid'") - 1
 
     def checkConnection(self):
-        cmd = 'ping -c %d %s > /dev/null 2>&1' % (self.checkPkt, self.checkServer)
-        print (cmd)
+        cmd = 'ping -c %d %s > /dev/null' % (self.checkPkt, self.checkServer)
         rcv = os.system(cmd)
         if rcv == 0:
             return True
@@ -59,20 +68,20 @@ class APJumper(object):
 
     def postConnect(self, interface):
         dhcp = self.config.getCommad('dhcp')
-        if dhcp != 'false':
+        if bool(dhcp) != False:
             self.dhcp(interface, dhcp)
 
         callback = self.config.getGlobal('callback')
-        if callback != 'false':
+        if bool(callback) != False:
             print (callback)
             #os.system(callback)
 
         check = self.config.getGlobal('check')
-        if check == 'true':
+        if bool(check) == True:
             status = self.checkConnection()
         else:
             status = True
-            
+
         return status
 
     def networkDispatcher(self):
@@ -80,7 +89,7 @@ class APJumper(object):
         if mode == 'one-interface':
             inter = self.oneInterface()
         elif mode == 'two-interface':
-            pass
+            pass #@TODO
         status = self.postConnect(inter)
         return status
 
@@ -91,13 +100,14 @@ class APJumper(object):
         self.id = engine(self, mode, **kwargs)
 
     def start(self):
+        self.config = Parser(config)
         logging.info('APJumper daemon running')
         while True:
-            logging.info('Loading networks')
+            self.sendEvent('Loading networks', False)
             self.loadNetworks()
-            logging.info('Connecting to the new network')
+            self.sendEvent('Connecting to the new network')
             status = self.networkDispatcher()
-            logging.info('Jumping to the next network')
+            self.sendEvent('Jumping to the next network', False)
             self.nextNetwork(status)
 
 def main():
