@@ -7,8 +7,8 @@ import logging
 import json
 import os
 
-config      = './config.cfg'
-logfile     = './wapjumper_events.log'
+config      = '/opt/WAPJumper/config.cfg'
+logfile     = '/etc/log/wapjumper_events.log'
 
 class APJumper(object):
 

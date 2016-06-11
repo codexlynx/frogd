@@ -6,7 +6,7 @@ PIDFILE="/var/run/${NAME}.pid"
 LOGFILE="/var/log/${NAME}.log"
 
 DAEMON=`which python3`
-DAEMON_OPTS="/opt/apjumper/WAPJumper.py"
+DAEMON_OPTS="/opt/WAPJumper/WAPJumper.py"
 
 START_OPTS="--start --background --make-pidfile --pidfile ${PIDFILE} --exec ${DAEMON} ${DAEMON_OPTS}"
 STOP_OPTS="--stop --pidfile ${PIDFILE}"

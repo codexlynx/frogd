@@ -5,7 +5,7 @@ if [[ `whoami` != "root" ]]; then
 	exit
 fi
 
-echo "Installation of AP-Jumper"
+echo "Installation of WAPJumper"
 echo "--------------------------"
 echo "Installing boot script..."
 
