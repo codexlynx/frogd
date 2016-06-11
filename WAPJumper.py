@@ -8,7 +8,7 @@ import json
 import os
 
 config      = './config.cfg'
-logfile     = './APJumper.log'
+logfile     = './wapjumper_events.log'
 
 class APJumper(object):
 
@@ -26,7 +26,7 @@ class APJumper(object):
 
         if notify == True and bool(self.config.getGlobal('notifications')) != False:
             notify = self.config.getCommad('notifications')
-            notify = notify.replace('${title}', 'AP-Jumper')
+            notify = notify.replace('${title}', 'WAPJumper')
             notify = notify.replace('${text}', text)
             os.system(notify)
 
@@ -101,7 +101,7 @@ class APJumper(object):
 
     def start(self):
         self.config = Parser(config)
-        logging.info('APJumper daemon running')
+        logging.info('WAPJumper daemon running')
         while True:
             self.sendEvent('Loading networks', False)
             self.loadNetworks()

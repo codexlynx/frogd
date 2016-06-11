@@ -7,13 +7,11 @@ fi
 
 echo "Installation of AP-Jumper"
 echo "--------------------------"
-echo ""
 echo "Installing boot script..."
 
-mv ./apjumper /etc/init.d/
-chmod +x /etc/init.d/apjumper
-service apjumper start
+cp ./wapjumper /etc/init.d/
+chmod +x /etc/init.d/wapjumper
+service wapjumper start
 
 echo "--------------------------"
-echo ""
 echo "Installed!"

@@ -1,12 +1,12 @@
 #!/bin/sh
 
-NAME=apjumper
-DESC="Automatic Access Point switching daemon"
+NAME=wapjumper
+DESC="Automatic wireless access point switching daemon"
 PIDFILE="/var/run/${NAME}.pid"
 LOGFILE="/var/log/${NAME}.log"
 
 DAEMON=`which python3`
-DAEMON_OPTS="/opt/apjumper/APJumper.py"
+DAEMON_OPTS="/opt/apjumper/WAPJumper.py"
 
 START_OPTS="--start --background --make-pidfile --pidfile ${PIDFILE} --exec ${DAEMON} ${DAEMON_OPTS}"
 STOP_OPTS="--stop --pidfile ${PIDFILE}"
