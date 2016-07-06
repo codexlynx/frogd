@@ -8,7 +8,7 @@ import json
 import os
 
 config      = '/opt/WAPJumper/config.cfg'
-logfile     = '/etc/log/wapjumper_events.log'
+logfile     = '/var/log/wapjumper_events.log'
 
 class APJumper(object):
 
@@ -49,8 +49,8 @@ class APJumper(object):
 
     def dhcp(self, interface, command):
         dhcp = command.replace('${interface}', interface)
-        print (dhcp)
-        #os.system(dhcp)
+        #print (dhcp)
+        os.system(dhcp)
 
     def connectNetwork(self, interface):
         network = self.config.getNetworks()[str(self.id)]
@@ -58,8 +58,8 @@ class APJumper(object):
         command = command.replace('${interface}', interface)
         command = command.replace('${essid}', network['essid'])
         command = command.replace('${password}', network['password'])
-        print (command)
-        #os.system(command)
+        #print (command)
+        os.system(command)
 
     def oneInterface(self):
         inter1, inter2 = self.config.getInterfaces()
@@ -73,8 +73,8 @@ class APJumper(object):
 
         callback = self.config.getGlobal('callback')
         if bool(callback) != False:
-            print (callback)
-            #os.system(callback)
+            #print (callback)
+            os.system(callback)
 
         check = self.config.getGlobal('check')
         if bool(check) == True:

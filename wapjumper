@@ -17,18 +17,18 @@ set -e
 
 case "$1" in
     start)
-        echo -n "Starting ${DESC}: "
+        echo -n "Starting: "
         start-stop-daemon $START_OPTS >> $LOGFILE
         echo "$NAME."
         ;;
     stop)
-        echo -n "Stopping $DESC: "
+        echo -n "Stopping: "
         start-stop-daemon $STOP_OPTS
         echo "$NAME."
         rm -f $PIDFILE
         ;;
     restart|force-reload)
-        echo -n "Restarting $DESC: "
+        echo -n "Restarting: "
         start-stop-daemon $STOP_OPTS
         sleep 1
         start-stop-daemon $START_OPTS >> $LOGFILE

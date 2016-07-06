@@ -10,7 +10,7 @@ class Algorithms(object):
             id = int(id) + 1
         else:
             #Functional algorithm
-            real = int(minutes) * 1#60
+            real = int(minutes) * 60
             time.sleep(real)
             if int(id) == core.max: #If it's exceded the maximum number of networks
                 id = 0
