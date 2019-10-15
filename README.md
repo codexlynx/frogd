@@ -1,47 +1,39 @@
-# **WAPJumper**
-#### Automatic wireless access point switching daemon
---------
+## frogd
+Daemon for the automatic jumping over 802.11 networks.
 
-![python](https://img.shields.io/badge/python-3.*-green.svg?style=flat)
+[![AUR](https://img.shields.io/aur/license/yaourt.svg)](LICENSE)
 ![privacy](https://img.shields.io/badge/privacy-tool-red.svg?style=flat)
 
-(**W**ireless **A**ccess **P**oint) Jumper is an automatic tool for switching
-of the wireless connection in differents APs. You can select your own
-"switching algorithm" (by default time_based).
+---
+
+### Usage
+```
+usage: frogd [-h] [--config PATH] [--rule PATH] [--networks-file PATH]
+                     [--dry]
+
+frogd / Daemon CLI.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --config PATH         Main configuration file path.
+  --rule PATH           Jump rule to use.
+  --networks-file PATH  CSV file with the list of networks.
+  --dry                 Enable dry run.
+```
+
+**Defaults:**
+> $ frogd --config /etc/frogd/config.cfg --rule /etc/frogd/rules/by_time.py --networks-file /etc/frogd/networks.csv
 
 ### Disclaimer
 
 * __Legal__:
 Use it at your own responsibility. Damages or legal problems caused by the tool are the responsibility of the user.
 
-* __License__:
-This tool is subject under the following license:
+### License
 
- >Creative Commons Attribution-ShareAlike 3.0
+> GPL (GNU General Public License) 3.0
 
- ![](https://licensebuttons.net/l/by-sa/3.0/88x31.png "Creative Commons")
-
- More Info: [Here](https://creativecommons.org/licenses/by-sa/3.0/ "Legal Description")
-
-### Requirements
-
-* You only need **Python 3**
-
-### Installation
-
-```
-cd /opt/
-sudo git clone <url>
-cd ./WAPJumper
-sudo chmod +x ./install.sh
-sudo ./install.sh
-```
-
-### Usage
-
-* Check configuration file (**/opt/WAPJumper/config.cfg**)
-* Next, you can use:
-  > service wapjumper start/stop
+More info: [here](LICENSE)
 
 ### About
 This tool was created by: __@codexlynx__.

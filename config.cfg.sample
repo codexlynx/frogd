@@ -1,0 +1,12 @@
+[global]
+  interface     = wlan0
+  notifications = false
+  command_wireless_connect = iwconfig
+  command_dhcp_request     = dhclient
+
+[commands]
+  #Wireless Manager command for connect.
+  iwconfig      = iwconfig ${interface} essid ${essid} key s:${password}
+
+  #DHCP Client command for a new request.
+  dhclient      = dhclient ${interface}

@@ -1,0 +1,10 @@
+[Unit]
+Description=Daemon for the automatic jumping over 802.11 networks.
+After=syslog.target
+
+[Service]
+WorkingDirectory=/etc/frogd
+ExecStart=frogd
+
+[Install]
+WantedBy=multi-user.target
