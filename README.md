@@ -1,7 +1,7 @@
 ## frogd
 Daemon for the automatic jumping over 802.11 networks.
 
-[![AUR](https://img.shields.io/aur/license/yaourt.svg)](LICENSE)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 ![privacy](https://img.shields.io/badge/privacy-tool-red.svg?style=flat)
 
 ---
